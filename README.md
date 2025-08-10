@@ -15,35 +15,30 @@ The system was developed as part of a bachelor thesis and integrates embedded au
 5. **Transcription** using OpenAI's Whisper model (`large-v3-turbo`)  
 6. **Correction & summarization** using GPT-4o via OpenAI API  
 
-## 📁 Project Structure
+## 📂 Folder Layout
+graphql
+Copy
+Edit
+src/
+├── main.c              # ESP32 firmware entry point
+├── mic.c / mic.h       # Microphone input handling (I2S + DMA)
+├── wifi.c / wifi.h     # Wi-Fi and TCP client code
+├── audio_server.py     # TCP server to receive audio
+├── audio_ai.py         # AI processing (Whisper + GPT-4o)
+├── audio_1.wav         # Example recorded audio
+├── audio_1.txt         # Example raw transcription
+└── audio_1.summary.txt # Example cleaned & summarized transcript
 
-```
-ESP32_audio_whisper/
-├── firmware/                  # ESP32 code (PlatformIO or ESP-IDF)
-│   ├── main.c
-│   ├── wifi.c / wifi.h
-│   ├── mic.c / mic.h
-│   └── platformio.ini
-│
-├── server/                    # Python server & AI processing module
-│   ├── audio_server.py
-│   └── audio_ai.py
-│
-├── output/                    # Audio and text output (ignored via .gitignore)
-│   ├── audio_1.wav
-│   ├── audio_1.txt
-│   └── audio_1.summary.txt
-│
-├── README.md
-├── LICENSE
-└── .gitignore
-```
+CMakeLists.txt          # Build system for ESP-IDF / PlatformIO
+LICENSE
+README.md
+Note: Example .wav, .txt, and .summary.txt files are included so you can see the output format without running the full pipeline.
 
 ## ▶️ How to Run
 
 ### ESP32 (Firmware)
 1. Install [PlatformIO](https://platformio.org/) in VS Code.  
-2. Open the `firmware/` directory.  
+2. Open the `src/` directory.  
 3. Configure your Wi-Fi credentials in `wifi.c`.  
 4. Upload the firmware:  
    ```
@@ -55,7 +50,7 @@ ESP32_audio_whisper/
    ```bash
    pip install openai-whisper openai
    ```
-2. Set your OpenAI API key (recommended via `.env`).  
+2. Set your OpenAI API keys in audio_server.py and audio_ai.py.  
 3. Run the server:
    ```bash
    python server/audio_server.py
@@ -69,7 +64,7 @@ ESP32_audio_whisper/
 ## 📌 Notes
 
 - The ESP32 firmware uses I2S in ADC mode and streams audio in chunks of 8192 bytes.  
-- The Python server auto-generates output filenames and handles timeout if data stream stops.  
+- The Python server auto-generates output filenames and handles data if data stream stops.  
 - Output files include:
   - `.wav` – raw audio
   - `.txt` – transcript
