@@ -15,24 +15,29 @@ The system was developed as part of a bachelor thesis and integrates embedded au
 5. **Transcription** using OpenAI's Whisper model (`large-v3-turbo`)  
 6. **Correction & summarization** using GPT-4o via OpenAI API  
 
-## 📂 Folder Layout
-graphql
-Copy
-Edit
-src/
-├── main.c              # ESP32 firmware entry point
-├── mic.c / mic.h       # Microphone input handling (I2S + DMA)
-├── wifi.c / wifi.h     # Wi-Fi and TCP client code
-├── audio_server.py     # TCP server to receive audio
-├── audio_ai.py         # AI processing (Whisper + GPT-4o)
-├── audio_1.wav         # Example recorded audio
-├── audio_1.txt         # Example raw transcription
-└── audio_1.summary.txt # Example cleaned & summarized transcript
+## 📁 Project Structure
 
-CMakeLists.txt          # Build system for ESP-IDF / PlatformIO
-LICENSE
-README.md
-Note: Example .wav, .txt, and .summary.txt files are included so you can see the output format without running the full pipeline.
+ESP32_audio_whisper/  
+├── .vscode/                    # VSCode workspace settings  
+├── include/                    
+├── src/                       # Source code for ESP32 and Python server  
+│   ├── CMakeLists.txt          # Build configuration for ESP32  
+│   ├── main.c                  
+│   ├── mic.c / mic.h           # Microphone code 
+│   ├── wifi.c / wifi.h         # WiFi connectivity code 
+│   ├── audio_server.py         # Python server handling audio input  
+│   ├── audio_ai.py             # AI processing module (Whisper & GPT)  
+│   ├── audio_1.wav             # Example audio file (ignored in git)  
+│   ├── audio_1.txt             # Transcription text output 
+│   └── audio_1.summary.txt     # Summary of transcription  
+├── test/                      
+├── CMakeLists.txt              
+├── Kconfig.projbuild          # Project configuration for ESP32  
+├── LICENSE                     
+├── README.md                  
+├── .gitignore                 
+└── platformio.ini             # PlatformIO configuration file  
+
 
 ## ▶️ How to Run
 
