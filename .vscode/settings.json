@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "wifi.h": "c",
+        "freertos.h": "c"
+    }
+}
